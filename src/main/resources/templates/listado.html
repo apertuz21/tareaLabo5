@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Listado de estudiantes</title>
+</head>
+<body>
+	<style>
+		body {
+		  font: normal medium/1.4 sans-serif;
+		}
+		table {
+		  border-collapse: collapse;
+		  width: 100%;
+		}
+		th, td {
+		  padding: 0.75rem;
+		  text-align: left;
+		  border: 1px solid #eee;
+		}
+		tbody tr:nth-child(odd) {
+		  background: #ccc;
+		}
+	</style>
+	<table>
+		<thead>
+			<th>Nombre</th>
+			<th>Apellido</th>
+			<th>Carne</th>
+			<th>Carrera</th>
+		</thead>
+		<th:block th:each="estudiante, row: ${estudiantes}">
+		<tr>
+			<th th:text="${estudiante.nombre}"/>
+			<th th:text="${estudiante.apellido}"/>
+			<th th:text="${estudiante.carne}"/>
+			<th th:text="${estudiante.carrera}"/>
+		</tr>
+		</th:block>
+	</table>
+
+</body>
+</html>
