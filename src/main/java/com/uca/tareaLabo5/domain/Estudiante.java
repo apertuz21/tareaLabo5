@@ -1,6 +1,8 @@
 package com.uca.tareaLabo5.domain;
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -8,26 +10,27 @@ import javax.validation.constraints.Size;
 public class Estudiante {
 	
     @Id
-    @Column(name = "c_usuario")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "c_usuario")
     private Integer codigo;
     
-    @Column(name = "nombre")
+    @Size(message = "El campo no debe contener más de 30 caracteres", max =30)
     @NotEmpty(message = "Ingrese un nombre porfavor")
+    @Column(name = "nombre")
     private String nombre;
     
-    @Column(name = "apellido")
+    @Size(message = "El campo no debe contener más de 30 caracteres", max =30)
     @NotEmpty(message = "Ingrese un apellido porfavor")
+    @Column(name = "apellido")
     private String apellido;
     
-    @Column(name = "carne")
-    @NotEmpty(message = "Ingrese su carne porfavor")
-    @Size(min=8, max=8,  message = "Debe tener 8 digitos exactos.")
-    private String carne;
+    @NotNull(message = "El campo no puede estar vacío")
+    @Min(value = 18, message = "No puede ser menor a 18 años")
+    @Column(name = "edad")
+    private Integer edad;
     
-    @Column(name = "carrera")
-    @NotEmpty(message = "Ingrese su carrera porfavor")
-    private String carrera;
+    @Column(name = "estado")
+    private Boolean estado;
     
     public Estudiante(){}
 
@@ -55,19 +58,24 @@ public class Estudiante {
         this.apellido = apellido;
     }
 
-    public String getCarne() {
-        return carne;
+    public Integer getEdad() {
+        return edad;
     }
 
-    public void setCarne(String carne) {
-        this.carne = carne;
+    public void setEdad(Integer edad) {
+        this.edad = edad;
+    }
+    
+    public Boolean getEstado() {
+    	return estado;
+    }
+    
+    public String getEstadoDelegate() {
+    	if(this.estado == null)  return "";
+    	else return estado == true ? "Activo":"Inactivo";
     }
 
-    public String getCarrera() {
-        return carrera;
-    }
-
-    public void setCarrera(String carreran) {
-        this.carrera = carreran;
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
     }
 }

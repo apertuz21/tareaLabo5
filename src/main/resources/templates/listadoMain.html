@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+	<title>Listado de estudiantes</title>
+	
+	<!-- Main CSS-->
+	<link href="css/main.css" rel="stylesheet" media="all">
+</head>
+<body>
+	<style>
+		body {
+		  font: normal medium/1.4 sans-serif;
+		}
+		table {
+		  border-collapse: collapse;
+		  width: 100%;
+		}
+		th, td {
+		  padding: 0.75rem;
+		  text-align: left;
+		  border: 1px solid #eee;
+		}
+		tbody tr:nth-child(odd) {
+		  background: #ccc;
+		}
+	</style>
+	<div class="page-wrapper p-t-45 p-b-50">
+	
+		<div class="wrapper wrapper--w790">
+			<table style="margin-bottom: 5%">
+				<thead>
+					<th>Código</th>
+					<th>Nombre</th>
+					<th>Apellido</th>
+					<th>Edad</th>
+					<th>Estado</th>
+				</thead>
+				<th:block th:each="estudiante, row: ${estudiantes}">
+				<tr>
+					<th th:text="${estudiante.codigo}"/>
+					<th th:text="${estudiante.nombre}"/>
+					<th th:text="${estudiante.apellido}"/>
+					<th th:text="${estudiante.edad}"/>
+					<th th:text="${estudiante.estadoDelegate}"/>
+				</tr>
+				</th:block>
+			</table>
+			
+			<form th:action="@{/insertarEstudiante}" style="margin-bottom: 10%">
+				 <div class="form-row" style="margin-bottom: 1%;">
+		             <div class="name" style="margin-right: 10px; width: auto;">Ingrese un nuevo estudiante:</div>
+		         </div>
+				<button class="btn btn--radius-2 btn--green" type="submit" style="padding: 0 30px; line-height: 40px;">Ingresar</button>
+			</form>
+			
+			<form th:action="@{/edit}" method="post" style="margin-bottom: 10%;">
+				<div class="form-row" style="margin-bottom: 1%;">
+	        		<div class="name" style="margin-right: 10px; width: auto;">Ingrese el código del estudiante:</div>
+	             	<div>
+	                	<div class="input-group">
+	                    	<input class="input--style-5" type="number" name="codigo" style="padding: 0;">
+	             		</div>
+	             	</div>
+	        	</div>
+	        	<div>
+	        		<button class="btn btn--radius-2 btn--green" type="submit" name="action" value="editar" style="padding: 0 30px; line-height: 40px; margin: 10px;">Editar</button>
+	        	</div>
+	        	
+			</form>
+			
+			<form th:action="@{/filtrar}" style="margin-bottom: 10%">
+				<div style="margin-bottom: 1%;">
+	        		<div class="name" style="margin-right: 10px; width: auto;">Búsqueda por término:</div>
+	             	<div>
+	                	<div class="input-group">
+	                    	<input class="input--style-5" type="text" name="nombre">
+	             		</div>
+	             	</div>
+	        	</div>
+	        	<div>
+	        		<button class="btn btn--radius-2 btn--blue" type="submit" name="action" value="buscar" style="padding: 0 30px; line-height: 40px;">Buscar</button>
+	        	</div>
+	        	
+			</form>
+			
+			<form th:action="@{/searchDelete}" method="post" style="margin-right: 5px;">
+				<div class="form-row" style="margin-bottom: 5%;">
+	        		<div class="name" style="margin-right: 10px; width: auto;">Ingrese el código del estudiante:</div>
+	             	<div>
+	                	<div class="input-group">
+	                    	<input class="input--style-5" type="number" name="codigo" style="padding: 0;">
+	             		</div>
+	             	</div>
+	        	</div>
+	        	<div>
+	        		<button class="btn btn--radius-2 btn--blue" type="submit" name="action" value="buscar" style="padding: 0 30px; line-height: 40px; margin: 10px;">Buscar</button>
+	        		<button class="btn btn--radius-2 btn--red" type="submit" name="action" value="eliminar" style="padding: 0 30px; line-height: 40px;">Eliminar</button>
+	        	</div>
+	        	
+			</form>
+		    
+		    
+		</div>
+		
+	</div>
+	
+	
+
+</body>
+</html>

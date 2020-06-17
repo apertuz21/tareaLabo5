@@ -8,7 +8,7 @@
     
 
     <!-- Title Page-->
-    <title>Tarea 5 - LaboPNC0120</title>
+    <title>Tarea 7 - LaboPNC0120</title>
 
     <!-- Icons font CSS-->
     <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
@@ -33,20 +33,21 @@
                 </div>
                 <div class="card-body">
                     <form method="POST" th:action=@{/save} th:object="${estudiante}">
+                    	<input type="number" name="codigo" th:field="*{codigo}" th:value="${estudiante.codigo}" style="visibility: hidden;">
                         <div class="form-row m-b-55">
                             <div class="name">Nombre</div>
                             <div class="value">
                                 <div class="row row-space">
                                     <div class="col-2">
                                         <div class="input-group-desc">
-                                            <input class="input--style-5" type="text" name="first_name" th:field="*{nombre}">
+                                            <input class="input--style-5" type="text" name="first_name" th:field="*{nombre}" th:value="${estudiante.nombre}">
                                             <label class="label--desc">Nombre</label>
                                             <span th:errors="*{nombre}" style="color: red"></span>
                                         </div>
                                     </div>
                                     <div class="col-2">
                                         <div class="input-group-desc">
-                                            <input class="input--style-5" type="text" name="last_name" th:field="*{apellido}">
+                                            <input class="input--style-5" type="text" name="last_name" th:field="*{apellido}" th:value="${estudiante.apellido}">
                                             <label class="label--desc">Apellido</label>
                                             <span th:errors="*{apellido}" style="color: red"></span>
                                         </div>
@@ -58,34 +59,55 @@
                             <div class="name">Edad</div>
                             <div class="value">
                                 <div class="input-group">
-                                    <input class="input--style-5" type="number" name="carne" th:field="*{edad}">
+                                    <input class="input--style-5" type="number" name="carne" th:field="*{edad}" th:value="${estudiante.edad}">
                                     <span th:errors="*{edad}" style="color: red"></span>
                                 </div>
                             </div>
                         </div>
                         
-                        <div style="display: flex;">
-	                        <div class="form-row">
-	                            <div class="name">Activo</div>
-	                            <div class="value">
-	                                <div class="input-group">
-	                                    <input class="input--style-5" type="radio" th:field="*{estado}" th:value="${true}" style="width: auto; margin-right: 100px;">
-	                                </div>
-	                            </div>
+                        <td>
+                        	<div style="display: flex;" th:if="${estudiante.estado == true}">
+		                        <div class="form-row">
+		                            <div class="name">Activo</div>
+		                            <div class="value">
+		                                <div class="input-group">
+		                                    <input class="input--style-5" name="estado" type="radio" th:field="*{estado}" th:value="${true}" style="width: auto; margin-right: 100px;" checked>
+		                                </div>
+		                            </div>
+		                        </div>
+		                        <div class="form-row">
+		                            <div class="name">Inactivo</div>
+		                            <div class="value">
+		                                <div class="input-group">
+		                                    <input class="input--style-5" name="estado" type="radio" th:field="*{estado}" th:value="${false}" style="width: auto;">
+		                                </div>
+		                            </div>
+		                        </div>
 	                        </div>
-	                        <div class="form-row">
-	                            <div class="name">Inactivo</div>
-	                            <div class="value">
-	                                <div class="input-group">
-	                                    <input class="input--style-5" type="radio" th:field="*{estado}" th:value="${false}" style="width: auto;">
-	                                </div>
-	                            </div>
+	                        
+	                        <div style="display: flex;" th:unless="${estudiante.estado == true}">
+		                        <div class="form-row">
+		                            <div class="name">Activo</div>
+		                            <div class="value">
+		                                <div class="input-group">
+		                                    <input class="input--style-5" name="estado" type="radio" th:field="*{estado}" th:value="${true}" style="width: auto; margin-right: 100px;">
+		                                </div>
+		                            </div>
+		                        </div>
+		                        <div class="form-row">
+		                            <div class="name">Inactivo</div>
+		                            <div class="value">
+		                                <div class="input-group">
+		                                    <input class="input--style-5" name="estado" type="radio" th:field="*{estado}" th:value="${false}" style="width: auto;" checked>
+		                                </div>
+		                            </div>
+		                        </div>
 	                        </div>
-                        </div>
+                        </td>
+                        
                         
                         <div sytle="display: flex;">
-                        	<button class="btn btn--radius-2 btn--green" type="submit">Guardar estudiante</button>
-                            <a href="/estudiantes"><button class="btn btn--radius-2 btn--blue" type="button" style="margin-right: 50px">Lista de estudiantes</button></a>
+                            <button class="btn btn--radius-2 btn--green" type="submit">Editar estudiante</button>
                         </div>
                     </form>
                 </div>

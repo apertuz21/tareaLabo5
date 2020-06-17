@@ -17,10 +17,11 @@ public class EstudianteDAOImpl implements EstudianteDAO {
     private EntityManager entityManager;
 
     @Override
-    @Transactional
-    public void insert(Estudiante estudiante) throws DataAccessException {
-        entityManager.persist(estudiante);
+    public Estudiante findOne(Integer code) throws DataAccessException {
+        Estudiante estudiante = entityManager.find(Estudiante.class, code);
+        return estudiante;
     }
+    
     @Override
     public List<Estudiante> findAll() throws DataAccessException {
         StringBuffer sb = new StringBuffer();
@@ -29,5 +30,27 @@ public class EstudianteDAOImpl implements EstudianteDAO {
         List<Estudiante> estudiantes = query.getResultList();
 
         return estudiantes;
+    }
+    
+    @Override
+    @Transactional
+    public void save(Estudiante estudiante) throws DataAccessException {
+    	try {
+    		if (estudiante.getCodigo() == null) {
+    			entityManager.persist(estudiante);
+    		} else {
+    			entityManager.merge(estudiante);
+    			entityManager.flush();
+    		}
+    	} catch (Throwable e) {
+    		e.printStackTrace();
+    	}
+    }
+    
+    @Override
+    @Transactional
+    public void delete(Integer codigo) throws DataAccessException {
+    	Estudiante estudiante = entityManager.find(Estudiante.class, codigo);
+    	entityManager.remove(estudiante);
     }
 }

@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 	<title>Listado de estudiantes</title>
-	
 	<!-- Main CSS-->
 	<link href="css/main.css" rel="stylesheet" media="all">
 </head>
@@ -35,7 +34,7 @@
 					<th>Edad</th>
 					<th>Estado</th>
 				</thead>
-				<th:block th:each="estudiante, row: ${estudiantes}">
+				<th:block >
 				<tr>
 					<th th:text="${estudiante.codigo}"/>
 					<th th:text="${estudiante.nombre}"/>
@@ -45,9 +44,8 @@
 				</tr>
 				</th:block>
 			</table>
-			
 			<form th:action="@{/estudiantes}">
-				<button class="btn btn--radius-2 btn--blue" type="submit">Regresar</button>
+				<button class="btn btn--radius-2 btn--red" type="submit">Regresar</button>
 			</form>
 		</div>
 	</div>
